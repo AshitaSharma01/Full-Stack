@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script> <!-- Optional icons -->
+  <style>
+    :root {
+      --bg: #f5f8fa;
+      --text: #1a1a1a;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --sidebar-bg: #ffffff;
+      --primary: #6366f1;
+      --border: #e2e8f0;
+    }
+
+    [data-theme="dark"] {
+      --bg: #1f2937;
+      --text: #f9fafb;
+      --card-bg: rgba(30, 41, 59, 0.8);
+      --sidebar-bg: #111827;
+      --primary: #8b5cf6;
+      --border: #374151;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 60px 1fr;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+      height: 100vh;
+    }
+
+    aside {
+      grid-area: sidebar;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      color: inherit;
+    }
+
+    .nav-link:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    header {
+      grid-area: header;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+    }
+
+    .theme-toggle {
+      padding: 8px 16px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    main {
+      grid-area: main;
+      padding: 2rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .card {
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px auto 1fr;
+        grid-template-areas:
+          "header"
+          "sidebar"
+          "main";
+      }
+
+      aside {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 1rem;
+      }
+
+      .nav-link {
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.8rem;
+      }
+
+      header {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside>
+      <div class="logo">🚀 DashPro</div>
+      <div class="nav-link"><i data-lucide="layout-dashboard"></i> Dashboard</div>
+      <div class="nav-link"><i data-lucide="bar-chart-2"></i> Analytics</div>
+      <div class="nav-link"><i data-lucide="users"></i> Users</div>
+      <div class="nav-link"><i data-lucide="settings"></i> Settings</div>
+    </aside>
+
+    <header>
+      <h1>Welcome to Admin Panel</h1>
+      <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    </header>
+
+    <main>
+      <div class="card">
+        <h3>Overview</h3>
+        <p>Get a quick glance at your performance metrics and system status.</p>
+      </div>
+      <div class="card">
+        <h3>Revenue Insights</h3>
+        <p>Track revenue growth with visual graphs and trends in real-time.</p>
+      </div>
+      <div class="card">
+        <h3>New Users</h3>
+        <p>Monitor user signups and engagement rates for the past 7 days.</p>
+      </div>
+      <div class="card">
+        <h3>Reports</h3>
+        <p>Access custom reports or schedule regular reports for analysis.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
